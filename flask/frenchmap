@@ -1,0 +1,94 @@
+import csv
+
+def transform_csv_file(input_file_path, output_file_path, output_column_name, transform_function):
+    with open(input_file_path, "r") as input_file, open(output_file_path, "w", newline="") as output_file:
+        reader = csv.reader(input_file)
+        writer = csv.writer(output_file)
+
+        # Read the header row from the input file and write it to the output file
+        header_row = next(reader)
+        writer.writerow(header_row + [output_column_name])
+
+        # Apply the transformation function to each word and write the transformed word to the output file
+        for row in reader:
+            word = row[0]
+            transformed_word = transform_function(word)
+            writer.writerow(row + [transformed_word])
+input_file_path = "ckreol.csv"
+output_file_path = "ckreol2.csv"
+output_column_name = "CK"
+def replace_word(word):
+    # Define all the replacements as a dictionary
+    replacements = {
+        'ion': 'yon',
+        'eux': 'e',
+        'ou': 'u',
+        'er': 'eur',
+        'yel': 'iel',
+        'trwa': 'troi',
+        'mwa': 'moi',
+        'twa': 'toi',
+        'si': 'cy',
+        'klet': 'clet',
+        'et': 'ett',
+        'y': 'uil',
+        'ay': 'ail',
+        'az': 'age',
+        'kil': 'cul',
+        'kal': 'cal',
+        'el': 'elle',
+        'an': 'ent',
+        'zis': 'zys',
+        'mo': 'mau',
+        'k': 'que',
+        'zis': 'his',
+        'sir': 'cir',
+        'ans': 'ance',
+        'pli': 'plu',
+        'fi': 'phy',
+        'man': 'ment',
+        'm': 'mme',
+        'as': 'ace',
+        'az': 'age',
+        'war': 'oir',
+        'ans': 'ence',
+        'k': 'q',
+        'ks': 'x',
+        'ez': 'euse',
+        'o': 'eau',
+        'an': 'ant',
+        'er': 'aire',
+        'is': 'iste',
+        'is': 'istre',
+        'iz': 'ise',
+        'is': 'ice',
+        'ir': 'ure',
+        'ad': 'ade',
+        'nn': 'nne',
+        'id': 'ude',
+        'ez': 'ege',
+        'ey': 'eil',
+        'er': 'aire',
+        'o': 'ot',
+        'et': 'aitre',
+        's': 'ch',
+        'onk': 'onc',
+        'kwa': 'coi',
+        'oi': 'oix',
+        'wa': 'oi',
+        'ab': 'able',
+        'an': 'em'
+    }
+
+    # Iterate over all the keys in the replacements dictionary and replace the occurrences of each key with its value
+    for key in replacements:
+        if key in word:
+            word = word.replace(key, replacements[key])
+
+    # Return the modified word
+    return word
+#def transform_word(word):
+    x = replace_word(word)
+    return x 
+print(replace_word("adantrwa"))
+#transform_csv_file(input_file_path, output_file_path, output_column_name, transform_word)
